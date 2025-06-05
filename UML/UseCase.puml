@@ -1,0 +1,220 @@
+@startuml "Réseau Social - Diagramme de Cas d'Utilisation"
+
+title Réseau Social - Diagramme de Cas d'Utilisation
+
+skinparam title {
+  BackgroundColor #F0F0F0
+  BorderColor #333333
+  FontSize 20
+  FontColor #333333
+}
+
+'==============================================================================
+' CONFIGURATION DU DIAGRAMME
+'==============================================================================
+skinparam usecase {
+  BackgroundColor #F8F8F8
+  BorderColor #333333
+  ArrowColor #333333
+  ActorBorderColor #333333
+  ActorBackgroundColor #FFFFFF
+}
+
+skinparam rectangle {
+  BackgroundColor #F0F0F0
+  BorderColor #999999
+  BorderThickness 3
+}
+
+skinparam actorStyle awesome
+
+'==============================================================================
+' ACTEURS
+'==============================================================================
+actor "Utilisateur" as User
+actor "Administrateur" as Admin
+actor "Non Connecté" as NonUser
+
+' Relation intra acteurs
+Admin .> User : est
+
+'==============================================================================
+' AUTHENTIFICATION
+'==============================================================================
+rectangle "Authentification" as Auth {
+    usecase "S'inscrire" as SignUp
+    usecase "Se connecter" as Login
+    usecase "Se déconnecter" as Logout
+    usecase "Réinitialiser mot de passe" as ResetPassword
+}
+
+'==============================================================================
+' ADMINISTRATION
+'==============================================================================
+rectangle "Administration" as AdminPanel {
+    usecase "Gérer utilisateurs" as ManageUsers
+    usecase "Gérer rôles" as ManageRoles
+    usecase "Gérer permissions" as ManagePermissions
+    usecase "Voir les logs" as ViewLogs
+    usecase "Voir statistiques" as ViewStatistics
+}
+
+'==============================================================================
+' PROFIL UTILISATEUR
+'==============================================================================
+rectangle "Profil Utilisateur" as UserProfile {
+    usecase "Voir profil" as ViewProfile
+    usecase "Modifier profil" as EditProfile
+    usecase "Changer de photo de profil" as ChangeProfilePhoto
+    usecase "Changer mot de passe" as ChangePassword
+    usecase "Controler ses préférences" as ManagePreferences
+}
+
+'==============================================================================
+' RESEAU SOCIAL
+'==============================================================================
+package "Reseau Social" as SocialNetwork {
+    rectangle "Publications" as Posts {
+        usecase "Publier un message" as PostMessage
+        usecase "Commenter un message" as CommentMessage
+        usecase "Aimer un message" as LikeMessage
+        usecase "Partager un message" as ShareMessage
+    }
+
+    rectangle "Relations" as Relations {
+        usecase "Ajouter un ami" as AddFriend
+        usecase "Supprimer un ami" as RemoveFriend
+        usecase "Envoyer une demande d'ami" as SendFriendRequest
+        usecase "Répondre à une demande d'ami" as RespondFriendRequest
+        usecase "Accepter une demande d'ami" as AcceptFriendRequest
+        usecase "Refuser une demande d'ami" as RejectFriendRequest
+        usecase "Bloquer un utilisateur" as BlockUser
+    }
+
+    rectangle "Messages Privés" as PrivateMessages {
+        usecase "Envoyer un message privé" as SendPrivateMessage
+        usecase "Afficher une conversation" as DisplayConversation
+        usecase "Voir les conversations" as ViewConversations
+        usecase "Supprimer un message" as DeleteMessage
+    }
+}
+
+'==============================================================================
+' GROUPES
+'==============================================================================
+rectangle "Groupes" as Group {
+    actor "Membre du groupe" as GroupMember
+    actor "Administrateur du groupe" as GroupAdmin
+
+    GroupAdmin ..> GroupMember : est
+
+    rectangle "Gestion des groupes" as GroupManagement {
+        usecase "Gérer les membres du groupe" as ManageGroupMembers
+        usecase "Gérer les publications du groupe" as ManageGroupPosts
+        usecase "Gérer les événements du groupe" as ManageGroupEvents
+        usecase "Gérer les paramètres du groupe" as ManageGroupSettings
+
+        GroupManagement -> ManageGroupEvents
+        GroupManagement -> ManageGroupPosts
+        GroupManagement -> ManageGroupSettings
+        GroupManagement -> ManageGroupMembers
+    }
+
+    usecase "Créer un groupe" as CreateGroup
+    usecase "Voir les groupes" as ViewGroups
+    usecase "Rejoindre un groupe" as JoinGroup
+    usecase "Quitter un groupe" as LeaveGroup
+    usecase "Gérer les membres du groupe" as ManageGroupMembers
+
+    CreateGroup .> GroupAdmin : devient
+
+    GroupAdmin -> GroupManagement
+
+    JoinGroup -> GroupMember
+
+    Group -> CreateGroup
+    Group -> ViewGroups
+    Group -> JoinGroup
+}
+
+'==============================================================================
+' MATCHMAKING AVANCÉ
+'==============================================================================
+rectangle "Matchmaking Avancé" as AdvancedMatchmaking {
+    usecase "Publier une annonce de recherche" as PostPlayerSearch
+    usecase "Consulter les annonces disponibles" as ViewPlayerAds
+    usecase "Filtrer les annonces par jeu" as FilterByGame
+    usecase "Filtrer les annonces par niveau" as FilterBySkillLevel
+    usecase "Filtrer les annonces par disponibilité" as FilterByAvailability
+    usecase "Se déclarer disponible pour jouer" as SetPlayerAvailable
+    usecase "Contacter un joueur/équipe" as ContactPlayerTeam
+}
+
+'==============================================================================
+' RELATIONS ENTRE ACTEURS ET CAS D'UTILISATION
+'==============================================================================
+' Relations Admin
+Admin ->AdminPanel : accède à
+AdminPanel --> ManageUsers
+AdminPanel --> ManageRoles
+AdminPanel --> ManagePermissions
+AdminPanel --> ViewLogs
+AdminPanel --> ViewStatistics
+
+' Relations NonUser
+NonUser --> SignUp
+NonUser --> Login
+NonUser --> ResetPassword
+
+' Relations User
+User -> ResetPassword
+User -> Logout
+User --> UserProfile : accède à
+User --> Posts
+User --> Relations
+User --> Group : accède à
+User ----> PrivateMessages : utilise
+User --> AdvancedMatchmaking : utilise
+
+' Relations UserProfile
+UserProfile --> ViewProfile
+UserProfile --> EditProfile
+
+
+
+ChangeProfilePhoto .> EditProfile : <<extend>>
+ChangePassword .> EditProfile : <<extend>>
+ManagePreferences .> EditProfile : <<extend>>
+
+' Relations PrivateMessages
+PrivateMessages --> SendPrivateMessage
+PrivateMessages --> DisplayConversation
+PrivateMessages --> ViewConversations
+PrivateMessages --> DeleteMessage
+
+' Relations Posts
+Posts --> PostMessage
+Posts --> CommentMessage
+Posts --> LikeMessage
+Posts --> ShareMessage
+
+' Relations Relations
+Relations --> AddFriend
+Relations --> RemoveFriend
+Relations --> SendFriendRequest
+Relations --> RespondFriendRequest
+Relations --> BlockUser
+
+AcceptFriendRequest .> RespondFriendRequest : <<extend>>
+RejectFriendRequest .> RespondFriendRequest : <<extend>>
+
+' Relations AdvancedMatchmaking
+AdvancedMatchmaking --> PostPlayerSearch
+AdvancedMatchmaking --> ViewPlayerAds
+AdvancedMatchmaking --> FilterByGame
+AdvancedMatchmaking --> FilterBySkillLevel
+AdvancedMatchmaking --> FilterByAvailability
+AdvancedMatchmaking --> SetPlayerAvailable
+AdvancedMatchmaking --> ContactPlayerTeam
+
+@enduml
