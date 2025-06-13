@@ -14,3 +14,11 @@ spring:
   graphql:
     graphiql:
       enabled: true
+
+jwt:
+  secret: LPUlAj5LFZEXeedXz1ZnlSCQOLtDemSHHHJFtQCWo0sFjNXUOh92zzqJuHXjREqrcGFFPU
+  issuer: technofutur.backend
+  expiration: 86400 # 1 day in milliseconds
+
+server:
+  port: 8080
