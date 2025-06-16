@@ -4,7 +4,10 @@ Content-Type: application/json
 
 {
   "username": "testaaron",
-  "password": "test1234"
+  "password": "test1234",
+  "email": "alondot@gmail.com",
+  "firstName": "Aaron",
+  "lastName": "Alon"
 }
 
 ### POST - user login

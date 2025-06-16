@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ToString
-@Table(name = "USERS")
+@Table(name = "USER_AUTH")
 public class User extends BaseEntity<Long> implements UserDetails {
 
     @Getter @Setter

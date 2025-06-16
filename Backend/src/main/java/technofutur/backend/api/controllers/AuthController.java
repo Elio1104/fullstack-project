@@ -30,7 +30,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<UserTokenDTO> register(@RequestBody RegisterForm form) {
-        User user = this.userService.register(form.username(), form.password(), "USER");
+        User user = this.userService.register(form, "USER");
         UserTokenDTO dto = UserTokenDTO.fromEntity(user);
         String token = jwtUtil.generateToken(user);
         dto.setToken(token);

@@ -6,8 +6,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import technofutur.backend.api.security.RegisterForm;
+import technofutur.backend.dal.entities.UserProfile;
 import technofutur.backend.dal.entities.security.User;
 import technofutur.backend.dal.entities.security.UserRole;
+import technofutur.backend.dal.repositories.UserProfileRepository;
 import technofutur.backend.dal.repositories.UserRepository;
 
 @Service
@@ -15,6 +18,7 @@ import technofutur.backend.dal.repositories.UserRepository;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserProfileRepository userProfileRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -32,14 +36,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(String email, String password, String role) {
-        if (userRepository.findByUsername(email).isPresent()) {
-            throw new IllegalArgumentException("User already exists with email: " + email);
+    public User register(RegisterForm form, String role) {
+        if (userRepository.findByUsername(form.username()).isPresent()) {
+            throw new IllegalArgumentException("User already exists with username: " + form.username() );
         }
+
         User user = new User();
-        user.setUsername(email);
-        user.setPassword(passwordEncoder.encode(password));
+        user.setUsername(form.username());
+        user.setPassword(passwordEncoder.encode(form.password()));
         user.setRole(UserRole.valueOf(role));
-        return userRepository.save(user);
+        user = userRepository.save(user);
+
+        UserProfile userProfile = new UserProfile();
+        userProfile.setUserAuth(user);
+        userProfile.setFirstName(form.firstName());
+        userProfile.setLastName(form.lastName());
+        userProfile.setEmail(form.email());
+        userProfileRepository.save(userProfile);
+
+
+        return user;
     }
 }
