@@ -9,6 +9,7 @@ import {
   Validators
 } from '@angular/forms';
 import {NgClass, NgIf} from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const password = control.get('password');
@@ -24,7 +25,8 @@ export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): V
   imports: [
     ReactiveFormsModule,
     NgClass,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
