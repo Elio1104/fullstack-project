@@ -15,7 +15,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @ToString
 @Table(name = "USER_AUTH")
-public class User extends BaseEntity<Long> implements UserDetails {
+public class UserAuth extends BaseEntity<Long> implements UserDetails {
 
     @Getter @Setter
     @Column(name = "USERNAME",unique = true, nullable = false, length = 50)
@@ -28,7 +28,7 @@ public class User extends BaseEntity<Long> implements UserDetails {
     @Getter @Setter
     @Column(name = "ROLE")
     @Enumerated(EnumType.STRING)
-    private UserRole role = UserRole.valueOf(this.getClass().getSimpleName().toUpperCase());
+    private UserRole role = UserRole.USER;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

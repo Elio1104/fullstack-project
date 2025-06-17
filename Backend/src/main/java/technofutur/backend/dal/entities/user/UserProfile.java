@@ -1,8 +1,9 @@
-package technofutur.backend.dal.entities;
+package technofutur.backend.dal.entities.user;
 
 import jakarta.persistence.*;
 import lombok.*;
-import technofutur.backend.dal.entities.security.User;
+import technofutur.backend.dal.entities.BaseEntity;
+import technofutur.backend.dal.entities.security.UserAuth;
 
 @Entity
 @AllArgsConstructor
@@ -10,12 +11,12 @@ import technofutur.backend.dal.entities.security.User;
 @EqualsAndHashCode(callSuper = false)
 @ToString
 @Table(name = "USER_DETAILS")
-public class UserProfile extends BaseEntity<Long>{
+public class UserProfile extends BaseEntity<Long> {
 
     @OneToOne
     @Getter @Setter
     @JoinColumn(name = "user_auth_id")
-    private User userAuth;
+    private UserAuth userAuth;
 
     @Getter @Setter
     @Column(name = "FIRST_NAME")

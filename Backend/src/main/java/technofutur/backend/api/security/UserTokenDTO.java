@@ -1,7 +1,7 @@
 package technofutur.backend.api.security;
 
 import lombok.Data;
-import technofutur.backend.dal.entities.security.User;
+import technofutur.backend.dal.entities.security.UserAuth;
 import technofutur.backend.dal.entities.security.UserRole;
 
 @Data
@@ -18,7 +18,7 @@ public class UserTokenDTO {
         this.role = role;
     }
 
-    public static UserTokenDTO fromEntity(User user) {
-        return new UserTokenDTO(user.getId(), user.getUsername(), user.getRole());
+    public static UserTokenDTO fromEntity(UserAuth userAuth) {
+        return new UserTokenDTO(userAuth.getId(), userAuth.getUsername(), userAuth.getRole());
     }
 }

@@ -2,12 +2,12 @@ package technofutur.backend.bll.services;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import technofutur.backend.api.security.RegisterForm;
-import technofutur.backend.dal.entities.security.User;
+import technofutur.backend.dal.entities.security.UserAuth;
 
 public interface UserService extends UserDetailsService {
 
-    User login(String username, String password);
+    UserAuth login(String username, String password);
 
-    User register(RegisterForm form, String role);
+    UserAuth register(RegisterForm form, String role);
 
 }
