@@ -1,0 +1,10 @@
+### GET request to example server
+GRAPHQL http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0dXNlciIsImlkIjoyLCJsb2dpbiI6InRlc3R1c2VyIiwiaWF0IjoxNzUwMTYyNDAxLCJleHAiOjE3NTAyNDg4MDF9.uu3MBDuL0QlP8vrBW1UXVjs0-fx-FKqvL-dHGh7mLmMYAgURN1Yy3NZDhP2oHVKXue6AszijXrEyh1LuJxMCCA
+
+{
+"query": "mutation { sendFriendRequest(receiverId: \"2\") { id sender { id username } receiver { id username } status createdAt } }"
+}
+
+###

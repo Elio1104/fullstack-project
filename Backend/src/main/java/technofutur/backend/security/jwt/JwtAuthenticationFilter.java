@@ -10,7 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
-import technofutur.backend.bll.services.UserService;
+import technofutur.backend.bll.services.security.UserService;
 
 import java.io.IOException;
 

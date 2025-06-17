@@ -1,4 +1,4 @@
-package technofutur.backend.bll.services;
+package technofutur.backend.bll.services.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -10,8 +10,8 @@ import technofutur.backend.api.security.RegisterForm;
 import technofutur.backend.dal.entities.user.UserProfile;
 import technofutur.backend.dal.entities.security.UserAuth;
 import technofutur.backend.dal.entities.security.UserRole;
-import technofutur.backend.dal.repositories.UserProfileRepository;
-import technofutur.backend.dal.repositories.UserRepository;
+import technofutur.backend.dal.repositories.user.UserProfileRepository;
+import technofutur.backend.dal.repositories.user.UserRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -53,7 +53,6 @@ public class UserServiceImpl implements UserService {
         userProfile.setLastName(form.lastName());
         userProfile.setEmail(form.email());
         userProfileRepository.save(userProfile);
-
 
         return userAuth;
     }

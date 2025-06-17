@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import technofutur.backend.api.security.LoginForm;
 import technofutur.backend.api.security.RegisterForm;
 import technofutur.backend.api.security.UserTokenDTO;
-import technofutur.backend.bll.services.UserService;
+import technofutur.backend.bll.services.security.UserService;
 import technofutur.backend.dal.entities.security.UserAuth;
 import technofutur.backend.security.jwt.JwtUtil;
 

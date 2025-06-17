@@ -5,7 +5,7 @@ import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 import technofutur.backend.api.user.UserGraphQLDTO;
-import technofutur.backend.bll.services.UserGraphQLService;
+import technofutur.backend.bll.services.user.UserGraphQLService;
 
 import java.util.List;
 

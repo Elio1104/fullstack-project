@@ -1,4 +1,4 @@
-package technofutur.backend.bll.services;
+package technofutur.backend.bll.services.security;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import technofutur.backend.api.security.RegisterForm;

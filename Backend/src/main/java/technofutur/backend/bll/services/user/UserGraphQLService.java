@@ -1,12 +1,12 @@
-package technofutur.backend.bll.services;
+package technofutur.backend.bll.services.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import technofutur.backend.api.user.UserGraphQLDTO;
 import technofutur.backend.dal.entities.security.UserAuth;
 import technofutur.backend.dal.entities.user.UserProfile;
-import technofutur.backend.dal.repositories.UserProfileRepository;
-import technofutur.backend.dal.repositories.UserRepository;
+import technofutur.backend.dal.repositories.user.UserProfileRepository;
+import technofutur.backend.dal.repositories.user.UserRepository;
 
 import java.util.List;
 import java.util.Optional;

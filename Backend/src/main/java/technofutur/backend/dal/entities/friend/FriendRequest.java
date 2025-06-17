@@ -15,17 +15,17 @@ public class FriendRequest extends BaseEntity<Long> {
 
     @Getter @Setter
     @ManyToOne
-    @Column(name = "SENDER_ID")
-    private UserAuth senderId;
+    @JoinColumn(name = "SENDER_ID")
+    private UserAuth sender;
 
     @Getter @Setter
     @ManyToOne
-    @Column(name = "RECEIVER_ID")
-    private UserAuth receiverId;
+    @JoinColumn(name = "RECEIVER_ID")
+    private UserAuth receiver;
 
     @Getter @Setter
     @Enumerated(EnumType.STRING)
-    @Column(name = "STATUS")
+    @JoinColumn(name = "STATUS")
     private FriendRequestStatus status;
 
 

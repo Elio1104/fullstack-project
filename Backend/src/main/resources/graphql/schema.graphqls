@@ -1,6 +1,18 @@
 type Query {
     users: [User]
     user(id: ID!): User
+    friends(userId: ID!): [User]
+    receivedFriendRequests: [FriendRequest]
+    sentFriendRequests: [FriendRequest]
+}
+
+type Mutation {
+    # Opérations pour les demandes d'ami
+    sendFriendRequest(receiverId: ID!): FriendRequest
+    acceptFriendRequest(requestId: ID!): Boolean
+    rejectFriendRequest(requestId: ID!): Boolean
+    cancelFriendRequest(requestId: ID!): Boolean
+    removeFriend(friendId: ID!): Boolean
 }
 
 type User {
@@ -10,4 +22,22 @@ type User {
     lastName: String
     email: String
     role: String
+    friends: [User]
+    friendRequestsReceived: [FriendRequest]
+    friendRequestsSent: [FriendRequest]
+}
+
+type FriendRequest {
+    id: ID!
+    sender: User!
+    receiver: User!
+    status: FriendRequestStatus!
+    createdAt: String!
+    updatedAt: String
+}
+
+enum FriendRequestStatus {
+    PENDING
+    ACCEPTED
+    REJECTED
 }
