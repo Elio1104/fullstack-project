@@ -6,7 +6,8 @@ import {
   Validators
 } from '@angular/forms';
 import {NgClass, NgIf} from '@angular/common';
-import { RouterLink } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -23,8 +24,14 @@ export class LoginComponent {
   loginForm!: FormGroup;
   submitted = false;
   showPassword = false;
+  errorMessage = '';
+  loading = false;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -41,11 +48,27 @@ export class LoginComponent {
 
   onSubmit(): void {
     this.submitted = true;
+    this.errorMessage = '';
 
     if (this.loginForm.invalid) {
       return;
     }
 
-    console.log('Données du formulaire:', this.loginForm.value);
+    this.loading = true;
+    const { username, password } = this.loginForm.value;
+
+    this.authService.login(username, password).subscribe({
+      next: (response) => {
+        console.log('Connexion réussie:', response);
+        this.loading = false;
+
+        this.router.navigate(['/home']);
+      },
+      error: (error) => {
+        console.error('Erreur de connexion:', error);
+        this.errorMessage = 'Échec de la connexion. Veuillez vérifier vos identifiants.';
+        this.loading = false;
+      }
+    });
   }
 }
