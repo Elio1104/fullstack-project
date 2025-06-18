@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {catchError, Observable, of} from 'rxjs';
+import {LoginForm} from '../models/login-form';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,10 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(username: String, password: String): Observable<any> {
+  login(loginForm: LoginForm): Observable<any> {
     return this.http.post(
       `${this.baseUrl}/login`,
-      { username, password }
+      loginForm
     ).pipe(
       catchError(err => {
         console.error('Erreur API capturée dans le service', err);

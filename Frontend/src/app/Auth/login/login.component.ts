@@ -8,6 +8,7 @@ import {
 import {NgClass, NgIf} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import {AuthService} from '../services/auth.service';
+import {LoginForm} from '../models/login-form';
 
 @Component({
   selector: 'app-login',
@@ -55,9 +56,9 @@ export class LoginComponent {
     }
 
     this.loading = true;
-    const { username, password } = this.loginForm.value;
+    const loginForm : LoginForm = this.loginForm.value;
 
-    this.authService.login(username, password).subscribe({
+    this.authService.login(loginForm).subscribe({
       next: (response) => {
         console.log('Connexion réussie:', response);
         this.loading = false;
