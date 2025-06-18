@@ -9,6 +9,7 @@ import {NgClass, NgIf} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {LoginForm} from '../../models/login-form';
+import {AuthStore} from '../../stores/auth.store';
 
 @Component({
   selector: 'app-login',
@@ -31,10 +32,15 @@ export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private authStore: AuthStore
   ) {}
 
   ngOnInit(): void {
+    if (this.authStore.isAuthenticated()) {
+      this.router.navigate(['/home']);
+    }
+
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
