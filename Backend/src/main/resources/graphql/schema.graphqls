@@ -4,6 +4,7 @@ type Query {
     friends(userId: ID!): [User]
     receivedFriendRequests: [FriendRequest]
     sentFriendRequests: [FriendRequest]
+    currentUser: User
 }
 
 type Mutation {

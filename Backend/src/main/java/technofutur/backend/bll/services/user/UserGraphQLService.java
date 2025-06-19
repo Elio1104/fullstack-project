@@ -38,4 +38,13 @@ public class UserGraphQLService {
         UserProfile userProfile = userProfileRepository.findByUserAuthId(id).orElse(null);
         return UserGraphQLDTO.fromEntities(userAuth.get(), userProfile);
     }
+
+    public UserGraphQLDTO getCurrentUser(UserAuth userAuth) {
+        if (userAuth == null) {
+            return null;
+        }
+
+        UserProfile userProfile = userProfileRepository.findByUserAuthId(userAuth.getId()).orElse(null);
+        return UserGraphQLDTO.fromEntities(userAuth, userProfile);
+    }
 }
