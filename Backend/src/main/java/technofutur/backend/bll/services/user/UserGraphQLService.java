@@ -39,6 +39,16 @@ public class UserGraphQLService {
         return UserGraphQLDTO.fromEntities(userAuth.get(), userProfile);
     }
 
+    public UserGraphQLDTO getUserByUsername(String username) {
+        Optional<UserAuth> userAuth = userRepository.findByUsername(username);
+        if (userAuth.isEmpty()) {
+            return null;
+        }
+
+        UserProfile userProfile = userProfileRepository.findByUserAuthId(userAuth.get().getId()).orElse(null);
+        return UserGraphQLDTO.fromEntities(userAuth.get(), userProfile);
+    }
+
     public UserGraphQLDTO getCurrentUser(UserAuth userAuth) {
         if (userAuth == null) {
             return null;

@@ -1,6 +1,7 @@
 type Query {
     users: [User]
     user(id: ID!): User
+    userByUsername(username: String!): User
     friends(userId: ID!): [User]
     receivedFriendRequests: [FriendRequest]
     sentFriendRequests: [FriendRequest]
@@ -8,7 +9,6 @@ type Query {
 }
 
 type Mutation {
-    # Opérations pour les demandes d'ami
     sendFriendRequest(receiverId: ID!): FriendRequest
     acceptFriendRequest(requestId: ID!): Boolean
     rejectFriendRequest(requestId: ID!): Boolean
@@ -33,8 +33,6 @@ type FriendRequest {
     sender: User!
     receiver: User!
     status: FriendRequestStatus!
-    createdAt: String!
-    updatedAt: String
 }
 
 enum FriendRequestStatus {

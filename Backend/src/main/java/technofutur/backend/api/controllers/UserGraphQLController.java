@@ -28,6 +28,11 @@ public class UserGraphQLController {
     }
 
     @QueryMapping
+    public UserGraphQLDTO userByUsername(@Argument String username) {
+        return userGraphQLService.getUserByUsername(username);
+    }
+
+    @QueryMapping
     public UserGraphQLDTO currentUser() {
         UserAuth authenticatedUser = getAuthenticatedUser();
         return userGraphQLService.getCurrentUser(authenticatedUser);
