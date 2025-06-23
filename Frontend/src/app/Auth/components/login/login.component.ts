@@ -69,7 +69,7 @@ export class LoginComponent {
         console.log('Connexion réussie:', response);
         this.loading = false;
 
-        this.router.navigate(['/home']);
+        this.router.navigate(['/me']);
       },
       error: (error) => {
         console.error('Erreur de connexion:', error);
