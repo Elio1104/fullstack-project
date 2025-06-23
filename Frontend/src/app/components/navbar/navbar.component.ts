@@ -1,8 +1,8 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {AuthStore} from '../../Auth/stores/auth.store';
+import {AuthStore} from '../../features/auth/stores/auth.store';
 import {Router, RouterLink} from '@angular/router';
-import {UserService} from '../../user/services/user.service';
-import {User} from '../../user/models/user.model';
+import {UserService} from '../../features/user/services/user.service';
+import {User} from '../../features/user/models/user.model';
 import {FormsModule} from '@angular/forms';
 import {NgForOf, NgIf} from '@angular/common';
 
