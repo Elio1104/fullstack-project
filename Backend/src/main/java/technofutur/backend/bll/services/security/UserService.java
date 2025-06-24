@@ -10,4 +10,5 @@ public interface UserService extends UserDetailsService {
 
     UserAuth register(RegisterForm form, String role);
 
+    UserAuth loadUserById(Long userId);
 }

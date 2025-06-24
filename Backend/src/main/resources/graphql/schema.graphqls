@@ -6,6 +6,7 @@ type Query {
     receivedFriendRequests: [FriendRequest]
     sentFriendRequests: [FriendRequest]
     currentUser: User
+    userConversations: [Conversation]
 }
 
 type Mutation {
@@ -14,6 +15,7 @@ type Mutation {
     rejectFriendRequest(requestId: ID!): Boolean
     cancelFriendRequest(requestId: ID!): Boolean
     removeFriend(friendId: ID!): Boolean
+    sendMessage(receiverId: ID!, content: String!): Message
 }
 
 type User {
@@ -33,6 +35,23 @@ type FriendRequest {
     sender: User!
     receiver: User!
     status: FriendRequestStatus!
+}
+
+type Conversation {
+    id: ID!
+    participants: [User!]!
+    messages: [Message!]!
+    createdAt: String
+    updatedAt: String
+}
+
+type Message {
+    id: ID!
+    sender: User!
+    conversation: Conversation
+    content: String!
+    createdAt: String
+    updatedAt: String
 }
 
 enum FriendRequestStatus {
