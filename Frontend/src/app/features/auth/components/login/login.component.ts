@@ -8,7 +8,7 @@ import {
 import {NgClass, NgIf} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
-import {LoginForm} from '../../models/login-form';
+import {LoginForm} from '../../models/login.form';
 import {AuthStore} from '../../stores/auth.store';
 
 @Component({
